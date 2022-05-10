@@ -41,10 +41,10 @@ public class Main {
 			min = scan.nextInt();
 			scan.nextLine();
 			
-			if(a==2) {
+			if(a==2 || a==4) {
 				System.out.println("\n Select direction: \n"
 						+ "#1. Up"
-						+ "#2. Down");
+						+ "\n#2. Down");
 				int dirrection = scan.nextInt();
 				scan.nextLine();
 				
@@ -57,6 +57,7 @@ public class Main {
 		int result1=calculator.FCFS(requests, pos);
 		int result2=calculator.SCAN(requests, pos, max, min, direcctionUp);
 		int result3=calculator.C_SCAN(requests, pos, max, min);
+		
 		switch(a) {
 			case 1:
 				System.out.println("\n\n Traveled units: "+result1);

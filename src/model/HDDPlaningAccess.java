@@ -16,36 +16,30 @@ public class HDDPlaningAccess {
 	
 	public int SCAN(int[] requests, int pos, int max, int min, boolean directionUp) {
 		int distance = 0;
+		int ref = pos;
 		Arrays.sort(requests);
 		
+		distance = requests[requests.length-1] - requests[0];
+		
 		if(directionUp) {
-			int ref = pos<requests[0]? pos: requests[0];
-			for(int i=0; i<requests.length; i++) {
-				if(requests[i]<=pos) {
-					distance += requests[i] - ref;
-					ref = requests[i];
-				}else {
-					distance += 2*(requests[i] - ref);
-					ref = requests[i];
-				}
+			if(pos>min) {
+				distance += (max-pos) + (max-requests[requests.length-1]);
+			}else {
+				distance += requests[0]-pos;
 			}
-			distance += 2*(max-requests[requests.length-1]);
 		}else {
-			int ref = pos>requests[requests.length-1]? pos: requests[requests.length-1];
-			for(int i=requests.length-1; i>0; i--) {
-				if(requests[i]>=pos) {
-					distance += ref- requests[i];
-					ref = requests[i];
-				}else {
-					distance += 2*(ref-requests[i]);
-					ref = requests[i];
-				}
+			if(pos<max) {
+				distance += (pos-min) + (requests[0]-min);
+			}else {
+				distance += requests[0]-pos;
 			}
-			distance += 2*(requests[requests.length-1]-min);
 		}
+		
+		
 		return distance;
 	}
 	
+
 	public int C_SCAN(int[] requests, int pos, int max, int min) {
 		int distance = max-min;
 		Arrays.sort(requests);
@@ -62,6 +56,11 @@ public class HDDPlaningAccess {
 				}
 			}
 		}
+		
+		if(pos>requests[0]) {
+			distance+=(max-min);
+		}
+		
 		return distance;
 	}
 }
